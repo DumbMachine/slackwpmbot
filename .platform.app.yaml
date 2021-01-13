@@ -11,19 +11,8 @@ dependencies:
 
 # The configuration of app when it is exposed to the web.
 web:
-  locations:
-    "/":
-      root: "build_platform"
-      index:
-        - "index.html"
-      expires: 300s
-      scripts: true
-      allow: false
-      rules:
-        \.(css|js|gif|jpe?g|png|ttf|eot|woff2?|otf|html|ico|svg?)$:
-          allow: true
-        ^/robots\.txt$:
-          allow: true
+  commands:
+    start: "node server.js"
 
 # The size of the persistent disk of the application (in MB).
 disk: 1024
@@ -39,5 +28,3 @@ hooks:
   build: |
     npm install
     npm run build
-  deploy: |
-    node server.js
