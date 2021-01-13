@@ -23,10 +23,10 @@ web:
           allow: true
 
 hooks:
+  # npm run buildenvvar
+  # npm run build
   build: |
     set -e
     yarn install
-    # npm run build
   deploy: |
     npm start
-    # npm run buildenvvar
