@@ -37,6 +37,7 @@ hooks:
   # npm run buildenvvar
   # set -e
   build: |
+    npm install
     npm run build
   deploy: |
     npm install -g serve
