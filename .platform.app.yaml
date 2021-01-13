@@ -1,10 +1,10 @@
 name: reactjs-app
 
-type: nodejs:6.9
+type: nodejs:8.10
 
-dependencies:
-  nodejs:
-    yarn: "*"
+# dependencies:
+#   nodejs:
+#     yarn: "*"
 
 # The configuration of app when it is exposed to the web.
 web:
