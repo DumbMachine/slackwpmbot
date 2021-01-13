@@ -9,11 +9,6 @@ dependencies:
   nodejs:
     yarn: "*"
 
-# The configuration of app when it is exposed to the web.
-web:
-  commands:
-    start: "node server.js"
-
 # The size of the persistent disk of the application (in MB).
 disk: 1024
 
@@ -28,3 +23,8 @@ hooks:
   build: |
     npm install
     npm run build
+
+# The configuration of app when it is exposed to the web.
+web:
+  commands:
+    start: "node server.js"
