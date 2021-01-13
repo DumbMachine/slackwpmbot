@@ -25,8 +25,8 @@ web:
 hooks:
   # npm run buildenvvar
   # npm run build
+  # set -e
   build: |
-    set -e
-    yarn install
+    npm install
   deploy: |
     npm start
