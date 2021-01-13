@@ -1,6 +1,6 @@
 name: reactjs-app
 
-type: nodejs:8.10
+type: nodejs:10.19.0
 
 # dependencies:
 #   nodejs:
