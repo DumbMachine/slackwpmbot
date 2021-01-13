@@ -40,5 +40,4 @@ hooks:
     npm install
     npm run build
   deploy: |
-    npm install -g serve
-    serve -s build
+    node server.js
