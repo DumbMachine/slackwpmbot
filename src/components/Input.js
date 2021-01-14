@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { randomRandom } from "./random";
+
 export default function Input(props) {
   const { signalStart, setStats, time, hash } = props;
   let things = hash.split("/");
