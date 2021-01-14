@@ -1,4 +1,5 @@
-const URL = "http://127.0.0.1:5000/saveStats";
+const URL =
+  "https://master-7rqtwti-563mnnknl3h64.eu-4.platformsh.site/saveStats";
 
 const postData = (setDataPosted, sessionHash, wpm) => {
   const body = { sessionHash, wpm };
