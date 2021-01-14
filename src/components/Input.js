@@ -1,24 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
-import randomWords from "random-words";
-import { randomRandom } from "../requests";
-
+import { randomRandom } from "./random";
 export default function Input(props) {
-  const { signalStart, setStats, time } = props;
+  const { signalStart, setStats, time, hash } = props;
+  let things = hash.split("/");
+  const nhash = things[things.length - 1];
+  console.log(nhash);
   const textInputRef = useRef();
   const targetWordRef = useRef();
-  const [targetWords, setTargetWords] = useState([
-    "or",
-    "parts",
-    "science",
-    "exist",
-    "one",
-    "poet",
-    "dark",
-    "factor",
-    "tube",
-    "center",
-  ]);
-  // const [targetWords, setTargetWords] = useState(randomWords(10));
+  const [targetWords, setTargetWords] = useState(randomRandom(nhash));
   const [currentTarget, setCurrentTarget] = useState(targetWords[0]);
   const [userInput, setUserInput] = useState("");
   const [wrongInput, setWrongInput] = useState(false);
@@ -26,13 +15,6 @@ export default function Input(props) {
   const focusInput = () => {
     textInputRef.current.focus();
   };
-
-  console.log(
-    "these are the words that will be used in the sentence: ",
-    targetWords
-  );
-
-  randomRandom(123);
 
   useEffect(() => {
     const numOfCharsEntered = userInput.trim().length;
@@ -64,7 +46,7 @@ export default function Input(props) {
 
       //update current target word and target words list
       let newTargetWord = targetWords[1];
-      setTargetWords([...targetWords.slice(1), randomWords(1)[0]]);
+      setTargetWords([...targetWords.slice(1), randomRandom(1)[0]]);
       setCurrentTarget(newTargetWord);
 
       //clear the input text
@@ -100,7 +82,7 @@ export default function Input(props) {
       //update stats only at end (design choice)
       setStats(countWordsCharsAndAcc());
       //reset input fields
-      let newTargetWords = randomWords(10);
+      let newTargetWords = randomRandom(10);
       setTargetWords(newTargetWords);
       setCurrentTarget(newTargetWords[0]);
       setUserInput("");

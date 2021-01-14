@@ -1,8 +1,9 @@
-const URL =
-  "https://master-7rqtwti-563mnnknl3h64.eu-4.platformsh.site/saveStats";
+// const URL =
+// "https://master-7rqtwti-563mnnknl3h64.eu-4.platformsh.site/saveStats";
+const URL = "http://localhost:8888/saveStats";
 
-const postData = (setDataPosted, sessionHash, wpm) => {
-  const body = { sessionHash, wpm };
+const postData = (username, setDataPosted, sessionHash, wpm) => {
+  const body = { username, sessionHash, wpm };
   if (wpm != null) {
     fetch(URL, {
       method: "POST",
@@ -20,19 +21,26 @@ const postData = (setDataPosted, sessionHash, wpm) => {
       })
       .then((data) => setDataPosted(data));
   } else {
-    console.log("skipping this request");
+    console.log("Skipping this request");
   }
 };
 
-const randomRandom = (hash) => {
-  if (hash != null) {
-    fetch("https://api.quotable.io/random", {
-      method: "GET",
-    }).then((res) => {
-      console.log(res.data, " this is the things that");
-      return res.json();
-    });
-  }
-};
+// const randomRandom = () => {
+//   if ( != null) {
+//     fetch("http://localhost:8888/getPrompt", {
+//       method: "POST",
+//     }).then((res) => {
+//       if (res.ok) {
+//         const jsonInfo = res.json();
+//         console.log("asdf", jsonInfo);
+//         return jsonInfo;
+//       } else {
+//         throw new Error("Failed to send server data");
+//       }
+//     });
+//     // .then((data) => return data);
+//     .then((data) => setPythonWords(data));
+//   }
+// };
 
-module.exports = { postData, randomRandom };
+module.exports = { postData };

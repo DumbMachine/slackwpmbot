@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Navbar, NavItem, NavLink, NavbarBrand, Nav } from "reactstrap";
+import axios from "axios";
+import React, { useEffect, useState, useCallback } from "react";
+import { Navbar, NavItem, NavLink, NavbarBrand, Nav, Button } from "reactstrap";
+import Cookies from "universal-cookie";
+
 import Input from "./components/Input";
 import Timer from "./components/Timer";
 import Stats from "./components/Stats";
-import Chart from "./components/Chart";
+// import Chart from "./components/Chart";
 import { postData } from "./requests";
+
 function App() {
   const TIME = 1;
+  const cookies = new Cookies();
+  const [userName, setUserName] = useState("default");
+  const [pythonWords, setPythonWords] = React.useState("");
+  const [responseData, setResponseData] = React.useState("");
   const [dataPosted, setDataPosted] = useState({});
   const [time, setTime] = useState(TIME);
   const [startTimer, setStartTimer] = useState(false);
@@ -21,6 +29,25 @@ function App() {
     setStartTimer(false);
   };
 
+  const changeUserName = () => {
+    const username = prompt("Please enter your slack-username");
+    cookies.set("slack-wpm-pltfrm-bot", username, {
+      expires: new Date(Date.now() + 5 * 60 * 1000),
+    });
+    setUserName(username);
+  };
+
+  useEffect(() => {
+    let username = cookies.get("slack-wpm-pltfrm-bot");
+    if (username == null) {
+      username = prompt("Please enter your slack-username");
+      cookies.set("slack-wpm-pltfrm-bot", username, {
+        expires: new Date(Date.now() + 5 * 60 * 1000),
+      });
+    }
+    setUserName(username);
+  });
+
   useEffect(() => {
     if (time === 0) {
       //display modal with stats when time runs out
@@ -31,24 +58,20 @@ function App() {
     }
   }, [time]);
 
-  // useEffect(() => {
-  //   //retrieve data
-  //   getData(setData);
-  // }, []);
-
   useEffect(() => {
     //stats only updated at end of a session, send data to backend
     if (stats !== []) {
       const wpm = stats[0];
       const sessionHash = window.location.href;
-      postData(setDataPosted, sessionHash, wpm);
+      postData(userName, setDataPosted, sessionHash, wpm);
     }
   }, [stats]);
 
   return (
     <React.Fragment>
       <Navbar color="dark">
-        <NavbarBrand>Type Type</NavbarBrand>
+        <NavbarBrand>Type</NavbarBrand>
+        <NavbarBrand onClick={changeUserName}>Change username</NavbarBrand>
       </Navbar>
       <p
         style={{
@@ -71,6 +94,7 @@ function App() {
         }}
         time={time}
         setStats={setStats}
+        hash={window.location.href}
       />
       <Stats
         isOpen={modalIsOpen}
