@@ -5,7 +5,6 @@ export default function Input(props) {
   const { signalStart, setStats, time, hash } = props;
   let things = hash.split("/");
   const nhash = things[things.length - 1];
-  console.log(nhash);
   const textInputRef = useRef();
   const targetWordRef = useRef();
   const [targetWords, setTargetWords] = useState(randomRandom(nhash));

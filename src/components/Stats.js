@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from "reactstrap";
 
 export default function Stats(props) {
@@ -9,8 +8,18 @@ export default function Stats(props) {
       <Modal isOpen={isOpen} toggle={toggle}>
         <ModalHeader toggle={toggle}></ModalHeader>
         <ModalBody className="stat-board">
-          {/* {dataPosted ? "" : "Some"} */}
-          {JSON.stringify(dataPosted)}
+          {dataPosted.status == "UpdateNice" ? (
+            <p>Check your slack. Updated slack</p>
+          ) : (
+            <p>{dataPosted.reason}</p>
+          )}
+          {"\n Will Refresh in 5 seconds \n"}
+          {isOpen
+            ? setTimeout(() => {
+                // window.location.reload();
+                window.location.reload(1);
+              }, 5000)
+            : null}
         </ModalBody>
         <ModalFooter>
           <Button onClick={toggle} color="warning">

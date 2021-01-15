@@ -13,14 +13,11 @@ function App() {
   const TIME = 10;
   const cookies = new Cookies();
   const [userName, setUserName] = useState("default");
-  const [pythonWords, setPythonWords] = React.useState("");
-  const [responseData, setResponseData] = React.useState("");
   const [dataPosted, setDataPosted] = useState({});
   const [time, setTime] = useState(TIME);
   const [startTimer, setStartTimer] = useState(false);
   const [stats, setStats] = useState([]);
   const [modalIsOpen, modalToggle] = useState(false);
-  const [data, setData] = useState([]);
   const startCountdown = async (startTime) => {
     for (let i = startTime; i >= 0; i--) {
       await new Promise((r) => setTimeout(r, 1000));

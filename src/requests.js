@@ -1,6 +1,6 @@
-const URL =
-  "https://master-7rqtwti-563mnnknl3h64.eu-4.platformsh.site/saveStats";
-// const URL = "http://localhost:8888/saveStats";
+// const URL =
+//   "https://master-7rqtwti-563mnnknl3h64.eu-4.platformsh.site/saveStats";
+const URL = "http://localhost:8888/saveStats";
 
 const postData = (username, setDataPosted, sessionHash, wpm) => {
   const body = { username, sessionHash, wpm };
