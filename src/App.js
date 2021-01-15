@@ -10,7 +10,7 @@ import Stats from "./components/Stats";
 import { postData } from "./requests";
 
 function App() {
-  const TIME = 1;
+  const TIME = 10;
   const cookies = new Cookies();
   const [userName, setUserName] = useState("default");
   const [pythonWords, setPythonWords] = React.useState("");
