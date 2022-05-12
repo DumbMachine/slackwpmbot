@@ -12,7 +12,9 @@ import { postData } from "./requests";
 function App() {
   const TIME = 10;
   const cookies = new Cookies();
-  const [userName, setUserName] = useState("default");
+  const [username, setUseraname] = useState(
+    cookies.get("slack-wpm-pltfrm-bot")
+  );
   const [dataPosted, setDataPosted] = useState({});
   const [time, setTime] = useState(TIME);
   const [startTimer, setStartTimer] = useState(false);
@@ -26,24 +28,17 @@ function App() {
     setStartTimer(false);
   };
 
-  const changeUserName = () => {
-    const username = prompt("Please enter your slack-username");
-    cookies.set("slack-wpm-pltfrm-bot", username, {
-      expires: new Date(Date.now() + 5 * 60 * 1000),
-    });
-    setUserName(username);
-  };
-
   useEffect(() => {
-    let username = cookies.get("slack-wpm-pltfrm-bot");
     if (username == null) {
-      username = prompt("Please enter your slack-username");
+      // reading the username from url
+      const urlO = new URL(window.location.toString());
+      const username = urlO.searchParams.get("uname");
       cookies.set("slack-wpm-pltfrm-bot", username, {
         expires: new Date(Date.now() + 5 * 60 * 1000),
       });
     }
-    setUserName(username);
-  });
+    setUseraname(username);
+  }, []);
 
   useEffect(() => {
     if (time === 0) {
@@ -60,26 +55,19 @@ function App() {
     if (stats !== []) {
       const wpm = stats[0];
       const sessionHash = window.location.href;
-      postData(userName, setDataPosted, sessionHash, wpm);
+      console.log("this was the wpm", stats);
+      postData(username, setDataPosted, sessionHash, wpm);
     }
   }, [stats]);
 
   return (
     <React.Fragment>
       <Navbar color="dark">
-        <NavbarBrand>Type</NavbarBrand>
-        <NavbarBrand onClick={changeUserName}>Change username</NavbarBrand>
+        <NavbarBrand>SlackWPM</NavbarBrand>
+        <NavbarBrand>{username}</NavbarBrand>
       </Navbar>
-      <p
-        style={{
-          textAlign: "center",
-          textTransform: "uppercase",
-          color: "grey",
-          marginTop: "10px",
-        }}
-      >
-        Typing speed test
-      </p>
+      <p></p>
+      <br />
       <h2 style={{ textAlign: "center" }}>Test your typing skills ⚡</h2>
       <Timer>{time}</Timer>
       <Input

@@ -3,11 +3,9 @@ import { randomRandom } from "./random";
 
 export default function Input(props) {
   const { signalStart, setStats, time, hash } = props;
-  let things = hash.split("/");
-  const nhash = things[things.length - 1];
   const textInputRef = useRef();
   const targetWordRef = useRef();
-  const [targetWords, setTargetWords] = useState(randomRandom(nhash));
+  const [targetWords, setTargetWords] = useState(randomRandom());
   const [currentTarget, setCurrentTarget] = useState(targetWords[0]);
   const [userInput, setUserInput] = useState("");
   const [wrongInput, setWrongInput] = useState(false);
@@ -21,9 +19,8 @@ export default function Input(props) {
 
     if (userInput === currentTarget.substr(0, numOfCharsEntered)) {
       //replace target word with remaining characters of the target word
-      targetWordRef.current.textContent = currentTarget.substr(
-        numOfCharsEntered
-      );
+      targetWordRef.current.textContent =
+        currentTarget.substr(numOfCharsEntered);
       setWrongInput(false);
     } else {
       setWrongInput(true);
@@ -71,10 +68,11 @@ export default function Input(props) {
       characterCount += val.word.length;
     });
 
-    let accuracyRate = correctWordsCount / totalWordsCount;
-    accuracyRate = (accuracyRate * 100).toFixed(2);
+    const accuracyRate = ((correctWordsCount / totalWordsCount) * 100).toFixed(
+      2
+    );
 
-    return [correctWordsCount, characterCount, accuracyRate];
+    return [correctWordsCount, characterCount * 2, accuracyRate];
   };
 
   useEffect(() => {
